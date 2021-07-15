@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Music Genre Detection</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+
+ <div class="login" >
+   <div id="head" style="font-family: Allerta Stencil, Sans-serif;">
+    <h1 style="font-size:6rem;">Genre Detection</h1>
+   </div>
+
+    <form action="{{ url_for('upload')}}"method="post" enctype="multipart/form-data">
+    	<input type="file" name="file" placeholder="Audio" required="required" accept=".wav" id = "upload"/>
+      <audio id="audio" controls>
+        <source src="" id="src" />
+      </audio>
+        <button type="submit" class="btn btn-primary btn-block btn-large" >Click to Predict genre of given audio</button>
+    </form>
+
+
+   <br>
+   <div style="transform: scale(1); color: white; ;"><em>
+    <table style=" transform: translate(-40%,20%)" id="table">
+
+    <tr>
+      {% for value in pre %}
+      <th style="padding:10px; border: 1px solid white;">
+        {{ value[0][0] }}
+      </th>
+          {% endfor %}
+    </tr>
+  </table>
+
+
+    </em></div>
+
+
+ </div>
+</body>
+<script>
+function handleFiles(event) {
+    var files = event.target.files;
+  $("#src").attr("src", URL.createObjectURL(files[0]));
+  document.getElementById("audio").load();
+}
+
+document.getElementById("upload").addEventListener("change", handleFiles, false);
+</script>
+</html>
